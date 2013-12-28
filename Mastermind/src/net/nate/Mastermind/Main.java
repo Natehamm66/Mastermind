@@ -1,3 +1,4 @@
+package net.nate.Mastermind;
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
@@ -50,12 +51,16 @@ public class Main {
 		boolean codeGuessed = false;
 		int guessNum = 0;
 		while (guessNum < NUM_GUESSES && !codeGuessed) {
-			System.out.println ("Guess the code: ");
+			System.out.println();
 			// TODO: Read a guess from the player, validate the guess and check
 			// the guess
-			String guess;
-			readLine(guess);
-			
+			readLine("Guess the code: ");
+			String guess = readLine("Guess the code: ");
+			isValidGuess(guess);
+			if (isValidGuess(guess)){
+				char guessAns[] = guess.toCharArray();
+				codeGuessed = checkGuess(guessAns,secretCode);
+			}
 		}
 		if (codeGuessed) {
 			System.out.println("Congratulations! You guessed the code!");
@@ -72,17 +77,18 @@ public class Main {
 	 * @param secretCode
 	 *            the secret code
 	 * @return true if the curGuess is the secretCode, false otherwise
-	 */ 
-	private static boolean checkGuess(final char[] curGuess, final char[] secretCode) {
+	 */
+	private static boolean checkGuess(final char[] curGuess,
+			final char[] secretCode) {
 		int numRedPegs = 0;
 		int numWhitePegs = 0;
 		// TODO: Check the guess by incrementing numRedPegs and numWhitePegs
 		// Use the rules from
 		// http://www.pressmantoy.com/instructions/instruct_mastermind.html
-		for (int i = 0; i < curGuess.length; i++){
-		if (curGuess[i] == secretCode[i]){
-			numRedPegs++;
-				}
+		for (int i = 0; i < curGuess.length; i++) {
+			if (curGuess[i] == secretCode[i]) {
+				numRedPegs++;
+			}
 		}
 		boolean allCorrect = (numRedPegs == secretCode.length);
 		if (!allCorrect) {
@@ -128,23 +134,22 @@ public class Main {
 		// guess.toCharArray().
 		char[] guessChars = guess.toCharArray();
 		if (guess.length() != CODE_LENGTH) {
-			 valid = false;
+			valid = false;
 		} else {
-		 valid = true;
-			for (int i = 0; i < guessChars.length; i++){
+			valid = true;
+			for (int i = 0; i < guessChars.length; i++) {
 				boolean validChar = false;
-			for (int j = 0; j < COLORS.length; j++){
-			if (guessChars[i] == COLORS[j]){
-				validChar = true;
-			 		}
+				for (int j = 0; j < COLORS.length; j++) {
+					if (guessChars[i] == COLORS[j]) {
+						validChar = true;
+					}
 				}
-				valid = validChar && valid;
+				valid = validChar & valid;
 			}
-
 		}
 		if (!valid && guess != null) {
-			System.out.println("Invalid guess, please try again"); 
-			
+			System.out.println("Invalid guess, please try again");
+
 		}
 		return valid;
 	}
@@ -169,7 +174,7 @@ public class Main {
 			try {
 				line = bufferedReader.readLine();
 			} catch (IOException ioe) {
-		} // Ignore
+			} // Ignore
 		} else {
 			line = console.readLine(prompt, args);
 		}
@@ -184,12 +189,12 @@ public class Main {
 	 */
 	private static char[] generateSecretCode() {
 		final char[] secretCode = new char[CODE_LENGTH];
-		for (int i = 0; i < 4; i++){
-		secretCode[i] = randomColor(); 
+		for (int i = 0; i < 4; i++) {
+			secretCode[i] = randomColor();
 		}
 		debug("Secret Code: " + Arrays.toString(secretCode));
 		return secretCode;
-		
+
 	}
 
 	/**
