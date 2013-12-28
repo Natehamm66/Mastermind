@@ -54,7 +54,7 @@ public class Main {
 			// TODO: Read a guess from the player, validate the guess and check
 			// the guess
 			String guess;
-			readLine(guess,);
+			readLine(guess);
 			
 		}
 		if (codeGuessed) {
@@ -80,11 +80,9 @@ public class Main {
 		// Use the rules from
 		// http://www.pressmantoy.com/instructions/instruct_mastermind.html
 		for (int i = 0; i < curGuess.length; i++){
-		for (int j = 0; j < secretCode.length; j++){
-		if (curGuess[i] == secretCode[j]){
+		if (curGuess[i] == secretCode[i]){
 			numRedPegs++;
 				}
-			}
 		}
 		boolean allCorrect = (numRedPegs == secretCode.length);
 		if (!allCorrect) {
@@ -130,15 +128,17 @@ public class Main {
 		// guess.toCharArray().
 		char[] guessChars = guess.toCharArray();
 		if (guess.length() != CODE_LENGTH) {
-			return valid;
+			 valid = false;
 		} else {
+		 valid = true;
 			for (int i = 0; i < guessChars.length; i++){
+				boolean validChar = false;
 			for (int j = 0; j < COLORS.length; j++){
-			if (guess.length() == CODE_LENGTH && guessChars[i] == COLORS[j]){
-				return !valid;
+			if (guessChars[i] == COLORS[j]){
+				validChar = true;
 			 		}
 				}
-				
+				valid = validChar && valid;
 			}
 
 		}
