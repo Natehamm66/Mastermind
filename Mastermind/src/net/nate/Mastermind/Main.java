@@ -54,11 +54,9 @@ public class Main {
 			System.out.println();
 			// TODO: Read a guess from the player, validate the guess and check
 			// the guess
-			readLine("Guess the code: ");
 			String guess = readLine("Guess the code: ");
-			isValidGuess(guess);
 			if (isValidGuess(guess)){
-				char guessAns[] = guess.toCharArray();
+				char[] guessAns = guess.toCharArray();
 				codeGuessed = checkGuess(guessAns,secretCode);
 			}
 		}
