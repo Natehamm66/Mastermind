@@ -50,8 +50,12 @@ public class Main {
 		boolean codeGuessed = false;
 		int guessNum = 0;
 		while (guessNum < NUM_GUESSES && !codeGuessed) {
+			System.out.println ("Guess the code: ");
 			// TODO: Read a guess from the player, validate the guess and check
 			// the guess
+			String guess;
+			readLine(guess,);
+			
 		}
 		if (codeGuessed) {
 			System.out.println("Congratulations! You guessed the code!");
@@ -72,10 +76,16 @@ public class Main {
 	private static boolean checkGuess(final char[] curGuess, final char[] secretCode) {
 		int numRedPegs = 0;
 		int numWhitePegs = 0;
-		
 		// TODO: Check the guess by incrementing numRedPegs and numWhitePegs
 		// Use the rules from
 		// http://www.pressmantoy.com/instructions/instruct_mastermind.html
+		for (int i = 0; i < curGuess.length; i++){
+		for (int j = 0; j < secretCode.length; j++){
+		if (curGuess[i] == secretCode[j]){
+			numRedPegs++;
+				}
+			}
+		}
 		boolean allCorrect = (numRedPegs == secretCode.length);
 		if (!allCorrect) {
 			System.out.print("Incorrect. Pegs: ");
@@ -122,9 +132,12 @@ public class Main {
 		if (guess.length() != CODE_LENGTH) {
 			return valid;
 		} else {
-			boolean arrayEquals = Arrays.equals(guessChars,COLORS);
-			if (guess.length() == CODE_LENGTH && arrayEquals == true){
+			for (int i = 0; i < guessChars.length; i++){
+			for (int j = 0; j < COLORS.length; j++){
+			if (guess.length() == CODE_LENGTH && guessChars[i] == COLORS[j]){
 				return !valid;
+			 		}
+				}
 				
 			}
 
@@ -156,7 +169,7 @@ public class Main {
 			try {
 				line = bufferedReader.readLine();
 			} catch (IOException ioe) {
-			} // Ignore
+		} // Ignore
 		} else {
 			line = console.readLine(prompt, args);
 		}
