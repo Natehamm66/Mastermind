@@ -79,23 +79,17 @@ public class Main {
 	 * @return true if the curGuess is the secretCode, false otherwise
 	 */
 	private static int find(char[] secretCode, char value) {
-		boolean isEqual = false;
 		for (int i = 0; i < secretCode.length; i++) {
 			if (value == secretCode[i]) {
-				isEqual = true;
+				return i;
 			}
 		}
-		if (isEqual = true) {
-			return value;
-		} else {
-			return -1;
-		}
-
+		return -1;
 	}
 
 	private static boolean checkGuess(final char[] curGuess,
 			final char[] secretCode) {
-		char isEqual = 0;
+		;
 		int numRedPegs = 0;
 		int numWhitePegs = 0;
 		for (int i = 0; i < curGuess.length; i++) {
@@ -103,8 +97,10 @@ public class Main {
 				numRedPegs++;
 				continue;
 			}
-			if (find(secretCode, isEqual) == secretCode[i]);
+			char isEqual = curGuess[i];
+			if (find(secretCode, isEqual) != -1) {
 				numWhitePegs++;
+			}
 		}
 
 		boolean allCorrect = (numRedPegs == secretCode.length);
