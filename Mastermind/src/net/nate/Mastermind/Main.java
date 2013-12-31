@@ -1,4 +1,5 @@
 package net.nate.Mastermind;
+
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
@@ -55,9 +56,10 @@ public class Main {
 			// TODO: Read a guess from the player, validate the guess and check
 			// the guess
 			String guess = readLine("Guess the code: ");
-			if (isValidGuess(guess)){
+			if (isValidGuess(guess)) {
 				char[] guessAns = guess.toCharArray();
-				codeGuessed = checkGuess(guessAns,secretCode);
+				codeGuessed = checkGuess(guessAns, secretCode);
+				guessNum++;
 			}
 		}
 		if (codeGuessed) {
@@ -76,18 +78,35 @@ public class Main {
 	 *            the secret code
 	 * @return true if the curGuess is the secretCode, false otherwise
 	 */
+	private static int find(char[] secretCode, char value) {
+		boolean isEqual = false;
+		for (int i = 0; i < secretCode.length; i++) {
+			if (value == secretCode[i]) {
+				isEqual = true;
+			}
+		}
+		if (isEqual = true) {
+			return value;
+		} else {
+			return -1;
+		}
+
+	}
+
 	private static boolean checkGuess(final char[] curGuess,
 			final char[] secretCode) {
+		char isEqual = 0;
 		int numRedPegs = 0;
 		int numWhitePegs = 0;
-		// TODO: Check the guess by incrementing numRedPegs and numWhitePegs
-		// Use the rules from
-		// http://www.pressmantoy.com/instructions/instruct_mastermind.html
 		for (int i = 0; i < curGuess.length; i++) {
 			if (curGuess[i] == secretCode[i]) {
 				numRedPegs++;
+				continue;
 			}
+			if (find(secretCode, isEqual) == secretCode[i]);
+				numWhitePegs++;
 		}
+
 		boolean allCorrect = (numRedPegs == secretCode.length);
 		if (!allCorrect) {
 			System.out.print("Incorrect. Pegs: ");
@@ -98,6 +117,7 @@ public class Main {
 				System.out.print("(W)");
 			}
 			System.out.println();
+
 		}
 		return allCorrect;
 	}
@@ -125,11 +145,6 @@ public class Main {
 	 */
 	public static boolean isValidGuess(final String guess) {
 		boolean valid = false;
-		// TODO: Validate the guess.
-		// A guess is valid if it is CODE_LENGTH characters long
-		// and it is composed solely of characters from COLORS
-		// NOTE: To turn a String into an array of chars, use
-		// guess.toCharArray().
 		char[] guessChars = guess.toCharArray();
 		if (guess.length() != CODE_LENGTH) {
 			valid = false;
